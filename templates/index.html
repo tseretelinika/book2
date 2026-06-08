@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Literature Page {% endblock %}
+
+{% block content %}
+<h1>This is Literature page</h1>
+<div class="row">
+    {% for book in books %}
+    <div class="col">
+        <div class="card" style="width: 18rem;">
+            <img src="/static/images/{{ book.image }}" class="card-img-top" alt="Book Cover Image">
+            <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <p class="card-text">{{ book.author }}</p>
+                <p>Rating: {{ book.rating }}</p>
+                <a href="/book/{{ book.id }}" class="btn btn-primary">See details</a>
+                {% if current_user.role == "Admin" %}
+                    <a href="/delete_book/{{ book.id }}" class="btn btn-danger">Delete Book</a>
+                    <a href="/update_book/{{ book.id }}" class="btn btn-info mt-2">Update Book</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
